@@ -145,7 +145,7 @@ class AnnotationParser {
 			$class = new AnnotatedReflectionClass($name);
 
 			// Ensure that class is a subclass of Annotation
-			if ($class->isSubClassOf('Annotation')) {
+			if ($class->isSubClassOf('Annotations\Annotation')) {
 				// Validate annotation target
 				self::validate($element, $class);
 
@@ -176,10 +176,10 @@ class AnnotationParser {
      * @throws AnnotationTargetException
 	 */
 	private static function validate(AnnotatedElement $element, AnnotatedReflectionClass $class) {
-		if ($element->getName() == 'AnnotationTarget') return;
+		if ($element->getName() == 'Annotations\AnnotationTarget') return;
 
-		if ($class->hasAnnotation('AnnotationTarget')) {
-			$target = $class->getAnnotation('AnnotationTarget');
+		if ($class->hasAnnotation('Annotations\AnnotationTarget')) {
+			$target = $class->getAnnotation('Annotations\AnnotationTarget');
 			if ($target->value() != null && $target->value() > 0 &&
 				!(($target->value() & $element->getAnnotatedElementType()) == $target->value())) {
 				throw new AnnotationTargetException('Invalid annotation "' . $class->getName() . '" for "' . $element->getName() . '"');

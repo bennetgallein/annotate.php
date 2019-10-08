@@ -121,7 +121,7 @@ class AnnotationParser {
 		}
 		// evaluable (int, boolean, constant, etc.)
 		else {
-			eval('$val = ' . $val . ';');
+			$var = $var;
 		}
 
 		return $val;

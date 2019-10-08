@@ -1,0 +1,13 @@
+{
+    "name": "esyoilgmbh/annotations",
+    "description": "Annotations primarily for route declaration",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "esyoil-GmbH",
+            "email": "esyoil@esyoil.com"
+        }
+    ],
+    "require": {}
+}

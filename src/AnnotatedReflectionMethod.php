@@ -1,7 +1,7 @@
 <?php
 namespace Annotations;
 
-class AnnotatedReflectionMethod extends ReflectionMethod implements AnnotatedElement {
+class AnnotatedReflectionMethod extends \ReflectionMethod implements AnnotatedElement {
 
 	function getAnnotatedElementType() {
 		return (AnnotatedElementType::METHOD | ($this->isConstructor() ? AnnotatedElementType::CONSTRUCTOR : 0));

@@ -9,5 +9,10 @@
             "email": "esyoil@esyoil.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "\\Annotations\\": "src/"
+        }
+    }
 }

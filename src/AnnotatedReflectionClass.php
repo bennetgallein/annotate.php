@@ -2,7 +2,7 @@
 namespace Annotations;
 
 
-class AnnotatedReflectionClass extends ReflectionClass implements AnnotatedElement {
+class AnnotatedReflectionClass extends \ReflectionClass implements AnnotatedElement {
 
 	function getAnnotatedElementType() {
 		return (AnnotatedElementType::TYPE | ($this->isSubClassOf('Annotation') ? AnnotatedElementType::ANNOTATION_TYPE : 0));

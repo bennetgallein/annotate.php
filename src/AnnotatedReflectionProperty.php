@@ -1,7 +1,7 @@
 <?php
 namespace Annotations;
 
-class AnnotatedReflectionProperty extends ReflectionProperty implements AnnotatedElement {
+class AnnotatedReflectionProperty extends \ReflectionProperty implements AnnotatedElement {
 
 	function getAnnotatedElementType() {
 		return AnnotatedElementType::PROPERTY;

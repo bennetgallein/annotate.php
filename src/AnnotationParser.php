@@ -28,8 +28,8 @@ class AnnotationParser {
 			preg_match_all('/@(.*)[\n|\*]/', $comment, $matches);
 			foreach ($matches[1] as $match) {
 				$match = trim($match);
-				$args = null;
-				$props = null;
+				$args = [];
+				$props = [];
 
 				// Annotation with parameters
 				if (strpos($match, '(') > 0) {

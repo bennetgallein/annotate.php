@@ -28,7 +28,7 @@ class AnnotatedReflectionClass extends \ReflectionClass implements AnnotatedElem
 
 	private $methods;
 
-	function getMethods() {
+	function getMethods($filter = NULL) {
 		if ($this->methods == null) {
 			$methods = parent::getMethods();
 			$this->methods = array();
@@ -50,7 +50,7 @@ class AnnotatedReflectionClass extends \ReflectionClass implements AnnotatedElem
 
 	private $properties;
 
-	function getProperties() {
+	function getProperties($filter = NULL) {
 		if ($this->properties == null) {
 			$properties = parent::getProperties();
 			$this->properties = array();

@@ -119,10 +119,6 @@ class AnnotationParser {
 			$val = substr($val, 1);
 			$val = substr($val, 0, strlen($val) -1);
 		}
-		// evaluable (int, boolean, constant, etc.)
-		else {
-			$var = $var;
-		}
 
 		return $val;
 	}

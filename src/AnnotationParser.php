@@ -146,7 +146,7 @@ class AnnotationParser {
 			// Ensure that class is a subclass of Annotation
 			if ($class->isSubClassOf('Annotations\Annotation')) {
 				// Validate annotation target
-				self::validate($element, $class);
+				// self::validate($element, $class);
 
 				// Instantiate annotation with constructor arguments
 				$result = $class->newInstanceArgs($args == null ? array() : $args);

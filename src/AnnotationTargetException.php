@@ -1,4 +1,6 @@
 <?php
+
 namespace Annotations;
 
-class AnnotationTargetException extends Exception {}
+class AnnotationTargetException extends \Exception {
+}

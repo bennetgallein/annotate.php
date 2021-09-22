@@ -1,20 +1,23 @@
 <?php
+
 namespace Annotations;
 
 class AnnotationParser {
 	// Tags used for generating PHP Docs (http://www.phpdoc.org/)
-	private static $TAGS = array('@abstract', '@access', '@author',
+	private static $TAGS = array(
+		'@abstract', '@access', '@author',
 		'@copyright', '@deprecated', '@deprec', '@example', '@exception',
 		'@global', '@ignore', '@internal', '@param', '@return', '@link',
 		'@name', '@magic', '@package', '@see', '@since', '@static',
-		'@staticvar', '@subpackage', '@throws', '@todo', '@var', '@version');
+		'@staticvar', '@subpackage', '@throws', '@todo', '@var', '@version'
+	);
 
 	/**
 	 * Parses an element's DocComment for Annotations
 	 *
 	 * @param AnnotatedElement $element Element to parse DocComment for
 	 * @return array
-     * @throws AnnotationParseException
+	 * @throws AnnotationParseException
 	 */
 	static function parse(AnnotatedElement $element) {
 		$annotations = array();
@@ -40,28 +43,28 @@ class AnnotationParser {
 					// Don't process any further if annotation is a PHP Doc tag
 					if (in_array('@' . $name, self::$TAGS)) continue;
 
-                    // Break parts up into individual args/props
-                    $t = array();
-                    $tmp = '';
-                    $arr = false;
-                    for ($i=strlen($parts[2][0]) - 1; $i>=0; $i--) {
-                        $chr = $parts[2][0][$i];
-                        if ($chr == '}') {
-                            $arr = true;
-                        } else if ($chr == '{') {
-                            $arr = false;
-                        } else if ($chr == ',' && !$arr) {
-                            $t[] = strrev($tmp);
-                            $tmp = '';
-                        } else {
-                            $tmp .= $chr;
-                        }
-                    }
-                    $t[] = strrev($tmp);
-                    $t = array_reverse($t);
+					// Break parts up into individual args/props
+					$t = array();
+					$tmp = '';
+					$arr = false;
+					for ($i = strlen($parts[2][0]) - 1; $i >= 0; $i--) {
+						$chr = $parts[2][0][$i];
+						if ($chr == '}') {
+							$arr = true;
+						} else if ($chr == '{') {
+							$arr = false;
+						} else if ($chr == ',' && !$arr) {
+							$t[] = strrev($tmp);
+							$tmp = '';
+						} else {
+							$tmp .= $chr;
+						}
+					}
+					$t[] = strrev($tmp);
+					$t = array_reverse($t);
 
-                    // Assign args/props accordingly
-                    foreach ($t as $a) {
+					// Assign args/props accordingly
+					foreach ($t as $a) {
 						if (strlen(trim($a)) == 0) continue;
 
 						// Named properties
@@ -76,7 +79,7 @@ class AnnotationParser {
 					}
 
 					// Don't allow mixing args and props
-                    if (sizeof($args) > 0 && sizeof($props) > 0) {
+					if (sizeof($args) > 0 && sizeof($props) > 0) {
 						throw new AnnotationParseException('Annotation "' . $name . '" cannot use both named properties and constructor arguments');
 					}
 				}
@@ -117,7 +120,7 @@ class AnnotationParser {
 		// string
 		else if (preg_match('/^([\'"]).*([\'"])$/', $val)) {
 			$val = substr($val, 1);
-			$val = substr($val, 0, strlen($val) -1);
+			$val = substr($val, 0, strlen($val) - 1);
 		}
 
 		return $val;
@@ -131,7 +134,7 @@ class AnnotationParser {
 	 * @param array $args Arguments to pass to the Annotation constructor
 	 * @param array $props Properties to populate the Annotation with
 	 * @return Annotation
-     * @throws AnnotationParseException
+	 * @throws AnnotationParseException
 	 */
 	private static function create(AnnotatedElement $element, $name, $args = null, $props = null) {
 		$result = null;
@@ -169,15 +172,17 @@ class AnnotationParser {
 	 * @param AnnotatedElement $element
 	 * @param AnnotatedReflectionClass $class
 	 * @return void
-     * @throws AnnotationTargetException
+	 * @throws AnnotationTargetException
 	 */
 	private static function validate(AnnotatedElement $element, AnnotatedReflectionClass $class) {
 		if ($element->getName() == 'Annotations\AnnotationTarget') return;
 
 		if ($class->hasAnnotation('Annotations\AnnotationTarget')) {
 			$target = $class->getAnnotation('Annotations\AnnotationTarget');
-			if ($target->value() != null && $target->value() > 0 &&
-				!(($target->value() & $element->getAnnotatedElementType()) == $target->value())) {
+			if (
+				$target->value() != null && $target->value() > 0 &&
+				!(($target->value() && $element->getAnnotatedElementType()) == $target->value())
+			) {
 				throw new AnnotationTargetException('Invalid annotation "' . $class->getName() . '" for "' . $element->getName() . '"');
 			}
 		}

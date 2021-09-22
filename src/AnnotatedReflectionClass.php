@@ -1,11 +1,12 @@
 <?php
+
 namespace Annotations;
 
 
 class AnnotatedReflectionClass extends \ReflectionClass implements AnnotatedElement {
 
 	function getAnnotatedElementType() {
-		return (AnnotatedElementType::TYPE | ($this->isSubClassOf('Annotation') ? AnnotatedElementType::ANNOTATION_TYPE : 0));
+		return (AnnotatedElementType::TYPE | ($this->isSubClassOf('Annotations\Annotation') ? AnnotatedElementType::ANNOTATION_TYPE : 0));
 	}
 
 	private $annotations;
@@ -69,5 +70,4 @@ class AnnotatedReflectionClass extends \ReflectionClass implements AnnotatedElem
 	function hasProperty($name) {
 		return $this->getProperty($name) != null;
 	}
-
 }

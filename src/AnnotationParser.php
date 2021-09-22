@@ -181,7 +181,7 @@ class AnnotationParser {
 			$target = $class->getAnnotation('Annotations\AnnotationTarget');
 			if (
 				$target->value() != null && $target->value() > 0 &&
-				!(($target->value() && $element->getAnnotatedElementType()) == $target->value())
+				!(($target->value() & $element->getAnnotatedElementType()) == $target->value())
 			) {
 				throw new AnnotationTargetException('Invalid annotation "' . $class->getName() . '" for "' . $element->getName() . '"');
 			}

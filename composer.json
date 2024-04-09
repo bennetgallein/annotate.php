@@ -1,12 +1,12 @@
 {
-    "name": "esyoilgmbh/annotations",
+    "name": "bennetgallein/annotations",
     "description": "Annotations primarily for route declaration",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "esyoil-GmbH",
-            "email": "esyoil@esyoil.com"
+            "name": "Bennet Gallein",
+            "email": "me@bennetgallein.de"
         }
     ],
     "require": {},
